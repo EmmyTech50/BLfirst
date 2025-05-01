@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import  { useState } from "react";
+import Logo from '../../assets/tulip-logo.png';
 import {
   Box,
   Flex,
@@ -14,6 +15,7 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
+  Image,
 } from "@chakra-ui/react";
 
 const ForgotPassword = () => {
@@ -58,13 +60,13 @@ const ForgotPassword = () => {
         justify="space-between"
         borderBottom="1px solid" 
         borderColor="gray.100"
-        bg="white"
+        bg="primary.100"
       >
         <Box>
-          <Text color="#6E741E" fontWeight="900"> Bright & Lustre </Text>
+          <Image src={Logo} alt="Logo" h="40px" objectFit="contain" />
         </Box>
         <Text fontSize="sm" color="gray.600">
-          Remember your password? <Link color="#6E741E" fontWeight="medium" href="#">Log In</Link>
+          Remember your password? <Link color="primary.50" fontWeight="medium" href="#">Log In</Link>
         </Text>
       </Flex>
 
@@ -80,7 +82,7 @@ const ForgotPassword = () => {
           <Box 
             flex="1" 
             p={8} 
-            bg="white" 
+            bg="primary.100" 
             borderRadius="md" 
             boxShadow="sm"
             maxW={{ base: "100%", lg: "500px" }}
@@ -88,7 +90,7 @@ const ForgotPassword = () => {
             mx="auto"
           >
             <VStack spacing={6} align="stretch">
-              <Text fontSize="2xl" fontWeight="bold" color="#6E741E" textAlign="center">
+              <Text fontSize="2xl" fontWeight="bold" color="primary.50" textAlign="center">
                 Forgot Your Password?
               </Text>
               
@@ -116,7 +118,7 @@ const ForgotPassword = () => {
                   </AlertDescription>
                   <Button 
                     mt={4} 
-                    color="#6E741E" 
+                    color="primary.50" 
                     variant="link"
                     onClick={() => setIsSubmitted(false)}
                   >
@@ -134,16 +136,16 @@ const ForgotPassword = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="your@email.com"
                         size="lg"
-                        focusBorderColor="#6E741E"
+                        focusBorderColor="primary.50"
                       />
                     </FormControl>
                     
                     <Button
                       width="100%"
                       type="submit"
-                      bg="#6E741E"
+                      bg="primary.50"
                       _hover={{ bg: "#e88e0d" }}
-                      color="white"
+                      color="primary.100"
                       size="md"
                       mt={2}
                     >
@@ -155,7 +157,7 @@ const ForgotPassword = () => {
               
               <Flex width="100%" justify="center" pt={4}>
                 <Text fontSize="sm" color="gray.600">
-                  Need an account? <Link color="#6E741E" fontWeight="medium" href="/register">Register Now</Link>
+                  Need an account? <Link color="primary.50" fontWeight="medium" href="/register">Register Now</Link>
                 </Text>
               </Flex>
             </VStack>

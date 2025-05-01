@@ -1,52 +1,53 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Flex,
+  Container,
+  VStack,
+  FormControl,
+  FormLabel,
   Input,
   InputGroup,
   InputRightElement,
   Button,
   Text,
+  Image,
   Link,
-  Container,
-  VStack,
-  FormControl,
-  FormLabel,
-  Checkbox,
   useToast,
-  HStack,
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import Logo from '../../assets/tulip-logo.png';
 
-const Register = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+export default function RegisterPage() {
+  const navigate = useNavigate();
+  const toast = useToast();
+
+  const [name, setName]                 = useState("");
+  const [email, setEmail]               = useState("");
+  const [password, setPassword]         = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [agreeToTerms, setAgreeToTerms] = useState(false);
-  const toast = useToast();
+  const [showConfirm, setShowConfirm]   = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Registration logic would go here
-    if (!name || !email || !phone || !password || !confirmPassword) {
+
+    // Basic validation
+    if (!name || !email || !password || !confirmPassword) {
       toast({
         title: "Error",
-        description: "Please fill in all fields",
+        description: "Please fill in all fields.",
         status: "error",
         duration: 3000,
         isClosable: true,
       });
       return;
     }
-
     if (password !== confirmPassword) {
       toast({
         title: "Error",
-        description: "Passwords do not match",
+        description: "Passwords do not match.",
         status: "error",
         duration: 3000,
         isClosable: true,
@@ -54,193 +55,142 @@ const Register = () => {
       return;
     }
 
-    if (!agreeToTerms) {
-      toast({
-        title: "Error",
-        description: "You must agree to the terms and conditions",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
-    
+    // Simulate successful registration
     toast({
       title: "Registration Successful",
-      description: "Welcome to Bright & Lustre!",
+      description: `Welcome, ${name}! Please log in.`,
       status: "success",
       duration: 3000,
       isClosable: true,
     });
+
+    navigate("/login");
   };
 
   return (
-    <Box minH="100vh" bg="#FDF9F3">
+    <Box minH="100vh" bg="gray.50" display="flex" flexDirection="column">
       {/* Header */}
-      <Flex 
-        as="header" 
-        width="100%" 
-        py={4} 
-        px={6} 
-        align="center" 
-        justify="space-between"
-        borderBottom="1px solid" 
-        borderColor="gray.100"
+      <Flex
+        as="header"
+        position="sticky"
+        top="0"
         bg="white"
+        borderBottom="1px solid"
+        borderColor="gray.200"
+        py={4}
+        px={6}
+        align="center"
       >
-        <Box>
-          <Text color="#6E741E" fontWeight="900"> Bright & Lustre </Text>
-        </Box>
-        <Text fontSize="sm" color="gray.600">
-          Already have an account? <Link color="#6E741E" fontWeight="medium" href="/login">Log In</Link>
-        </Text>
+        <RouterLink to="/">
+          <Image src={Logo} alt="The Tulip Logo" h="40px" objectFit="contain" />
+        </RouterLink>
       </Flex>
 
-      {/* Main Content */}
-      <Container maxW="container.xl" py={8}>
-        <Flex 
-          direction={{ base: "column", lg: "row" }} 
-          gap={8} 
-          justify="center" 
-          align="stretch"
-        >
-          {/* Registration Form */}
-          <Box 
-            flex="1" 
-            p={8} 
-            bg="white" 
-            borderRadius="md" 
-            boxShadow="sm"
-            maxW={{ base: "100%", lg: "500px" }}
-            mx="auto"
-          >
-            <VStack spacing={6} align="stretch">
-              <Text fontSize="2xl" fontWeight="bold" color="#6E741E" textAlign="center">
-                Create Your Account
-              </Text>
-              
-              <form onSubmit={handleRegister}>
-                <VStack spacing={4}>
-                  <FormControl id="name" isRequired>
-                    <FormLabel fontSize="sm" color="gray.700">Full Name</FormLabel>
-                    <Input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="John Doe"
-                      size="lg"
-                      focusBorderColor="#6E741E"
-                    />
-                  </FormControl>
+      {/* Registration Form */}
+      <Container maxW="md" flex="1" py={12}>
+        <Box p={8} bg="white" borderRadius="md" boxShadow="sm">
+          <VStack spacing={6} align="stretch">
+            <Text fontSize="2xl" fontWeight="bold" textAlign="center" color="primary.50">
+              Create Your Account
+            </Text>
 
-                  <FormControl id="email" isRequired>
-                    <FormLabel fontSize="sm" color="gray.700">Email Address</FormLabel>
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="your@email.com"
-                      size="lg"
-                      focusBorderColor="#6E741E"
-                    />
-                  </FormControl>
+            <form onSubmit={handleRegister}>
+              <VStack spacing={4}>
+                <FormControl id="name" isRequired>
+                  <FormLabel>Full Name</FormLabel>
+                  <Input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Jane Doe"
+                    size="lg"
+                    focusBorderColor="primary.50"
+                  />
+                </FormControl>
 
-                  <FormControl id="phone" isRequired>
-                    <FormLabel fontSize="sm" color="gray.700">Phone Number</FormLabel>
-                    <Input
-                      type="tel"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="+1 (555) 123-4567"
-                      size="lg"
-                      focusBorderColor="#6E741E"
-                    />
-                  </FormControl>
-                  
-                  <FormControl id="password" isRequired>
-                    <FormLabel fontSize="sm" color="gray.700">Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        type={showPassword ? "text" : "password"}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="••••••••"
-                        size="lg"
-                        focusBorderColor="#6E741E"
-                      />
-                      <InputRightElement>
-                        <Button
-                          variant="ghost"
-                          onClick={() => setShowPassword(!showPassword)}
-                          aria-label={showPassword ? "Hide password" : "Show password"}
-                          color="gray.500"
-                          size="md"
-                        >
-                          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </FormControl>
+                <FormControl id="email" isRequired>
+                  <FormLabel>Email Address</FormLabel>
+                  <Input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    size="lg"
+                    focusBorderColor="primary.50"
+                  />
+                </FormControl>
 
-                  <FormControl id="confirmPassword" isRequired>
-                    <FormLabel fontSize="sm" color="gray.700">Confirm Password</FormLabel>
-                    <InputGroup>
-                      <Input
-                        type={showConfirmPassword ? "text" : "password"}
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="••••••••"
-                        size="lg"
-                        focusBorderColor="#6E741E"
-                      />
-                      <InputRightElement>
-                        <Button
-                          variant="ghost"
-                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          aria-label={showConfirmPassword ? "Hide password" : "Show password"}
-                          color="gray.500"
-                          size="md"
-                        >
-                          {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  </FormControl>
-                  
-                  <Flex width="100%" justify="flex-start" align="center">
-                    <Checkbox 
-                      colorScheme="orange" 
-                      isChecked={agreeToTerms}
-                      onChange={(e) => setAgreeToTerms(e.target.checked)}
-                    >
-                      <Text fontSize="sm">I agree to the <Link color="#6E741E" href="#">Terms of Service</Link> and <Link color="#6E741E" href="#">Privacy Policy</Link></Text>
-                    </Checkbox>
-                  </Flex>
-                  
-                  <Button
-                    width="100%"
-                    type="submit"
-                    bg="#6E741E"
-                    _hover={{ bg: "#e88e0d" }}
-                    color="white"
-                    size="md"
-                    mt={2}
-                  >
-                    Create Account
-                  </Button>
-                </VStack>
-              </form>
-            </VStack>
-          </Box>
-        </Flex>
+                <FormControl id="password" isRequired>
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup size="lg">
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="••••••••"
+                      focusBorderColor="primary.50"
+                    />
+                    <InputRightElement>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowPassword((v) => !v)}
+                        aria-label={showPassword ? "Hide password" : "Show password"}
+                      >
+                        {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+
+                <FormControl id="confirmPassword" isRequired>
+                  <FormLabel>Confirm Password</FormLabel>
+                  <InputGroup size="lg">
+                    <Input
+                      type={showConfirm ? "text" : "password"}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="••••••••"
+                      focusBorderColor="primary.50"
+                    />
+                    <InputRightElement>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setShowConfirm((v) => !v)}
+                        aria-label={showConfirm ? "Hide password" : "Show password"}
+                      >
+                        {showConfirm ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+
+                <Button
+                  type="submit"
+                  width="full"
+                  bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}} color="primary.100"
+                  size="lg"
+                >
+                  Create Account
+                </Button>
+              </VStack>
+            </form>
+
+            <Text textAlign="center" fontSize="sm" color="gray.600">
+              Already have an account?{" "}
+              <Link as={RouterLink} to="/login" color="primary.50" fontWeight="medium">
+                Log in
+              </Link>
+            </Text>
+          </VStack>
+        </Box>
       </Container>
-      
+
       {/* Footer */}
       <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
-        <Text>© 2025 Bright & Lustre. All rights reserved.</Text>
+        © 2025 The Tulip Body Care. All rights reserved.
       </Box>
     </Box>
   );
-};
-
-export default Register;
+}

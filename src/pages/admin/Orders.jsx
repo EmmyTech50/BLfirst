@@ -1,9 +1,12 @@
-import React from 'react'
 
-const Orders = () => {
+import { Box, Heading } from '@chakra-ui/react';
+import OrderTable from '../../components/OrderTable';
+
+export default function Orders() {
   return (
-    <div>Orders</div>
-  )
+    <Box>
+      <Heading mb={4} color='primary.50'>Orders</Heading>
+      <OrderTable />
+    </Box>
+  );
 }
-
-export default Orders
