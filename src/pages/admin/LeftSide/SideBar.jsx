@@ -18,7 +18,6 @@ import {
   FiBarChart2,
   FiSettings,
   FiRadio,
-  FiBookOpen,
   FiUser,
 } from 'react-icons/fi'
 
@@ -29,7 +28,6 @@ const menuItems = [
   { label: 'Customers', to: '/admin/customers',icon: FiUsers       },
   { label: 'Locations', to: '/admin/locations',icon: FiRadio       },
   { label: 'Admins',    to: '/admin/admins',   icon: FiBarChart2   },
-  { label: 'NewsLetter',    to: '/admin/newsletter',   icon: FiBookOpen  },
   { label: 'Profile',    to: '/admin/profile',   icon: FiUser },
   { label: 'Settings',  to: '/admin/settings', icon: FiSettings    },
 ]

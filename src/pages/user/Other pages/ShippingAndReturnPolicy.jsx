@@ -92,7 +92,7 @@ export default function ShippingReturns() {
           </Heading>
           <UnorderedList mb={4} pl={4} color="gray.700">
             <ListItem>
-              <strong>Return Window:</strong> You may return unused items within 7 days of delivery.
+              <strong>Return Window:</strong> You may return unused items within 3 days of delivery.
             </ListItem>
             <ListItem>
               <strong>Condition:</strong> Items must be in original packaging, unworn, unwashed, with all tags attached.

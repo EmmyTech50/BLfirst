@@ -60,12 +60,12 @@ export default function MyAccount({ onLogout }) {
   return (
     <Box minH="100vh" bg={bg}>
       {/* Header */}
-      <Flex as="header" bg="white" boxShadow="sm" align="center" px={6} py={4}>
-        <RouterLink to="/">
-          <Image src={Logo} alt="Logo" h="40px" objectFit="contain" />
-        </RouterLink>
-        <Spacer />
-      </Flex>
+      <RouterLink to="/">
+        <Flex as="header" bg="white" boxShadow="sm" align="center" px={6} py={4}>
+            <Image src={Logo} alt="Logo" h="40px" objectFit="contain" />
+          <Spacer />
+        </Flex>
+      </RouterLink>
 
       <Flex direction="column" align="center" gap={6} maxW="600px" mx="auto" mt={8} px={4}>
         {/* Avatar with camera overlay */}
@@ -114,7 +114,7 @@ export default function MyAccount({ onLogout }) {
           <TabPanels>
             {/* — Orders Panel */}
             <TabPanel>
-                <Button colorScheme="pink" onClick={() => navigate("/account/orders")}>
+                <Button colorScheme="pink" onClick={() => navigate("/myorders")}>
                   View Orders
                 </Button>
             </TabPanel>
@@ -123,9 +123,8 @@ export default function MyAccount({ onLogout }) {
             <TabPanel>
               <VStack align="start" spacing={3}>
                 {lastAddress && (
-                  <Box pt={4} borderTop="1px solid" borderColor="gray.200" w="100%">
-                    <Text fontWeight="bold" mb={1}>Last order delivered to:</Text>
-                    <Text>{lastAddress.street}, {lastAddress.city}, {lastAddress.postal}, {lastAddress.location}</Text>
+                  <Box pt={2} borderTop="1px " borderWidth="2px" w="100%">
+                    <Text fontWeight="semibold" m={2}>{lastAddress.street}, {lastAddress.city}, {lastAddress.postal}, {lastAddress.location}</Text>
                   </Box>
                 )}
               </VStack>

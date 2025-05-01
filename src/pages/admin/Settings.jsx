@@ -21,7 +21,9 @@ import {
   Checkbox,
   Flex,
   Text,
+  IconButton,
 } from '@chakra-ui/react'
+import { FiTrash2 } from 'react-icons/fi'
 
 export default function SettingsPage() {
   const toast = useToast()
@@ -32,18 +34,26 @@ export default function SettingsPage() {
   const [emailPromos, setEmailPromos] = useState(false)
   const [smsAlerts, setSmsAlerts] = useState(false)
 
-  // --- Slides: options + active ids ---
-  const [slideOptions, setSlideOptions] = useState([
-    { id: 1, title: 'Summer Sale', image: '/images/slide1.jpg' },
-    { id: 2, title: 'New Arrivals', image: '/images/slide2.jpg' },
-    { id: 3, title: 'Best Sellers', image: '/images/slide3.jpg' },
-    { id: 4, title: 'Limited Time Offer', image: '/images/slide4.jpg' },
-    { id: 5, title: 'Back to School', image: '/images/slide5.jpg' },
-  ])
-  const [activeSlides, setActiveSlides] = useState([1, 2, 3])
+  // --- Slides: load from localStorage or defaults ---
+  const defaultSlides = [
+    { id: 1, title: 'Summer Sale', subtitle: '', image: '/images/slide1.jpg' },
+    { id: 2, title: 'New Arrivals', subtitle: '', image: '/images/slide2.jpg' },
+    { id: 3, title: 'Best Sellers', subtitle: '', image: '/images/slide3.jpg' },
+    { id: 4, title: 'Limited Time Offer', subtitle: '', image: '/images/slide4.jpg' },
+    { id: 5, title: 'Back to School', subtitle: '', image: '/images/slide5.jpg' },
+  ]
+  const [slideOptions, setSlideOptions] = useState(() => {
+    const json = localStorage.getItem('slideOptions')
+    return json ? JSON.parse(json) : defaultSlides
+  })
+  const [activeSlides, setActiveSlides] = useState(() => {
+    const json = localStorage.getItem('activeSlides')
+    return json ? JSON.parse(json) : [1, 2, 3]
+  })
 
   // Upload form state
   const [newTitle, setNewTitle] = useState('')
+  const [newSubtitle, setNewSubtitle] = useState('')
   const fileInputRef = useRef()
 
   // Toggle which slides are “active” (max 3)
@@ -65,16 +75,13 @@ export default function SettingsPage() {
     })
   }
 
-  const handleSaveSlides = () => {
-    toast({
-      title: 'Slide selection saved.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    })
-    // TODO: persist slideOptions & activeSlides to your API
+  // Delete a slide
+  const handleDeleteSlide = (id) => {
+    setSlideOptions(prev => prev.filter(s => s.id !== id))
+    setActiveSlides(prev => prev.filter(s => s !== id))
   }
 
+  // Upload new slide
   const handleUpload = () => {
     const file = fileInputRef.current.files[0]
     if (!newTitle || !file) {
@@ -92,19 +99,22 @@ export default function SettingsPage() {
       {
         id: prev.length ? Math.max(...prev.map(s => s.id)) + 1 : 1,
         title: newTitle,
+        subtitle: newSubtitle,
         image: url,
       }
     ])
     setNewTitle('')
+    setNewSubtitle('')
     fileInputRef.current.value = null
     toast({
-      title: 'Hero image uploaded.',
+      title: 'Slide uploaded.',
       status: 'success',
       duration: 3000,
       isClosable: true,
     })
   }
 
+  // Save notification settings
   const handleSaveNotifications = () => {
     toast({
       title: 'Notification settings saved.',
@@ -113,6 +123,17 @@ export default function SettingsPage() {
       isClosable: true,
     })
     // TODO: persist emailOrders, emailPromos, smsAlerts
+  }
+
+  // Save slides & persist to localStorage
+  const handleSaveSlides = () => {
+    toast({
+      title: 'Slide selection saved.',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
+    })
+    // TODO: also send to your API if needed
   }
 
   return (
@@ -136,7 +157,7 @@ export default function SettingsPage() {
                 <Switch isChecked={colorMode === 'dark'} onChange={toggleColorMode} />
               </FormControl>
               <Button
-                bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}} color="primary.100"
+                bg="primary.50" _hover={{ bg:"rgba(255,255,255,0.2)", color: "primary.50" }} color="primary.100"
                 onClick={() =>
                   toast({
                     title: `Theme set to ${colorMode === 'dark' ? 'Dark' : 'Light'}.`,
@@ -167,7 +188,7 @@ export default function SettingsPage() {
                 <Switch isChecked={smsAlerts} onChange={e => setSmsAlerts(e.target.checked)} />
               </FormControl>
               <Button
-                bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}} color="primary.100"
+                bg="primary.50" _hover={{ bg:"rgba(255,255,255,0.2)", color: "primary.50" }} color="primary.100"
                 onClick={handleSaveNotifications}
               >
                 Save Notification Settings
@@ -189,11 +210,19 @@ export default function SettingsPage() {
                 />
               </FormControl>
               <FormControl mb={3}>
+                <FormLabel>Slide Subtitle</FormLabel>
+                <Input
+                  placeholder="E.g. ‘Up to 50% off’"
+                  value={newSubtitle}
+                  onChange={e => setNewSubtitle(e.target.value)}
+                />
+              </FormControl>
+              <FormControl mb={3}>
                 <FormLabel>Image File</FormLabel>
                 <Input type="file" accept="image/*" ref={fileInputRef} />
               </FormControl>
               <Button
-                bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}} color="primary.100"
+                bg="primary.50" _hover={{ bg:"rgba(255,255,255,0.2)", color: "primary.50" }} color="primary.100"
                 onClick={handleUpload}
               >
                 Upload
@@ -209,7 +238,17 @@ export default function SettingsPage() {
                   borderRadius="md"
                   overflow="hidden"
                   p={2}
+                  position="relative"
                 >
+                  <IconButton
+                    icon={<FiTrash2 />}
+                    size="sm"
+                    aria-label="Delete slide"
+                    position="absolute"
+                    top="2px"
+                    right="2px"
+                    onClick={() => handleDeleteSlide(slide.id)}
+                  />
                   <Image
                     src={slide.image}
                     alt={slide.title}
@@ -219,6 +258,7 @@ export default function SettingsPage() {
                   />
                   <VStack align="start" mt={2} spacing={1}>
                     <Text fontWeight="bold">{slide.title}</Text>
+                    <Text fontSize="sm" color="gray.600">{slide.subtitle}</Text>
                     <Checkbox
                       isChecked={activeSlides.includes(slide.id)}
                       onChange={() => handleSlideToggle(slide.id)}
@@ -236,7 +276,7 @@ export default function SettingsPage() {
             <Flex justify="flex-end">
               <Button
                 w={32}
-                bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}} color="primary.100"
+                bg="primary.50" _hover={{ bg:"rgba(255,255,255,0.2)", color: "primary.50" }} color="primary.100"
                 onClick={handleSaveSlides}
               >
                 Save Slides

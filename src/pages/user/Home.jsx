@@ -301,11 +301,8 @@ export default function Home() {
 
   // Filter products by category & search
   const filteredProducts = products.filter((p) => {
-    const inCat = selectedCategory === "all" || p.categoryId.toString() === selectedCategory;
-    const inSearch =
-      searchQuery === "" ||
-      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const inCat          = selectedCategory === "all" || p.categoryId.toString() === selectedCategory;
+    const inSearch       =  searchQuery === "" || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.description.toLowerCase().includes(searchQuery.toLowerCase());
     return inCat && inSearch;
   });
 
@@ -314,9 +311,7 @@ export default function Home() {
   if (sortOption === "latest") {
     sortedProducts = sortedProducts.filter((p) => p.isNew);
   } else if (sortOption === "bestseller") {
-    sortedProducts = sortedProducts
-      .filter((p) => p.isBestseller)
-      .sort((a, b) => b.reviewCount - a.reviewCount);
+    sortedProducts = sortedProducts.filter((p) => p.isBestseller).sort((a, b) => b.reviewCount - a.reviewCount);
   }
 
     // Apply priceFilter, including custom
@@ -343,11 +338,7 @@ export default function Home() {
   const addToCart = (product) => {
     const existing = cartItems.find((i) => i.id === product.id);
     if (existing) {
-      setCartItems(
-        cartItems.map((i) =>
-          i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
-        )
-      );
+      setCartItems( cartItems.map((i) => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i ) );
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
@@ -420,18 +411,15 @@ export default function Home() {
   };
 
   // Totals
-  const calculateCartTotal = () =>
-    cartItems
-      .reduce((sum, i) => sum + (i.discountPrice ?? i.price) * i.quantity, 0)
-      .toFixed(2);
-  const cartItemCount = cartItems.reduce((sum, i) => sum + i.quantity, 0);
+  const calculateCartTotal = () => cartItems.reduce((sum, i) => sum + (i.discountPrice ?? i.price) * i.quantity, 0).toFixed(2);
+  const cartItemCount      = cartItems.reduce((sum, i) => sum + i.quantity, 0);
 
 
 // Delivery & checkout state
 const [deliveryOption, setDeliveryOption] = useState("pickup");
-const [location, setLocation]         = useState("");
-const [deliveryFee, setDeliveryFee]   = useState(0);
-const [cartTotal, setCartTotal]       = useState(0);
+const [location, setLocation]             = useState("");
+const [deliveryFee, setDeliveryFee]       = useState(0);
+const [cartTotal, setCartTotal]           = useState(0);
 
 // Clear Location and reset the fee
 useEffect(() => {
@@ -573,7 +561,7 @@ const grandTotal = goodsTotal + deliveryFee;
                 <MenuList>
                   <MenuItem as={Link} to="/login">Sign In</MenuItem>
                   <MenuItem as={Link} to="/myaccount">My Account</MenuItem>
-                  <MenuItem as={Link} to="#">Orders</MenuItem>
+                  <MenuItem as={Link} to="/myorders" >My Orders</MenuItem>
                   <MenuItem as={Link} to="/login">Logout</MenuItem>
                 </MenuList>
               </Menu>
@@ -1212,12 +1200,11 @@ const grandTotal = goodsTotal + deliveryFee;
                 size="lg"
                 rightIcon={<FiArrowRight />}
                 onClick={() => {
-                  onCheckoutClose();
-
+                  onCheckoutClose(); 
                   // persist last-used address for MyAccount page
                   const addr = { location, street, city, postal };
                   localStorage.setItem("lastOrderAddress", JSON.stringify(addr));
-                  
+
                   toast({
                     title: "Payment completed!",
                     description: `You paid ₦${grandTotal.toFixed(2)} successfully.`,
@@ -1225,6 +1212,7 @@ const grandTotal = goodsTotal + deliveryFee;
                     duration: 2000,
                     isClosable: true,
                   });
+                  setCartItems([]); // clear cart
                 }}
               >
                 Complete Payment

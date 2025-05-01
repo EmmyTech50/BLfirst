@@ -4,7 +4,7 @@ const authService = {
   
   register: async (userData) => {
     try {
-      const response = await api.post('auth/register.php', userData);
+      const response = await api.post('auth/register', userData);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -20,10 +20,25 @@ const authService = {
     }
   },
 
+  verify: async (data) => {
+    try {
+      const response = await api.post('auth/verify', data);
+      return response.data;
+    } catch (error) {
+      if (error.response) {
+        throw error.response.data;
+      } else if (error.request) {
+        throw { error: 'No response from server. Please check your connection.' };
+      } else {
+        throw { error: 'Failed to send request. Please try again.' };
+      }
+    }
+  },
+
 
   login: async (credentials) => {
     try {
-      const response = await api.post('auth/login.php', credentials);
+      const response = await api.post('auth/login', credentials);
       
       // If login is successful, store the token
       if (response.data.token) {
@@ -49,7 +64,7 @@ const authService = {
 
   recover: async (data) => {
     try {
-      const response = await api.post('auth/recover.php', data);
+      const response = await api.post('auth/recover', data);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -64,7 +79,7 @@ const authService = {
 
   changePassword: async (payload) => {
     try {
-      const response = await api.post('auth/changePassword.php', payload);
+      const response = await api.post('auth/changePassword', payload);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -78,7 +93,7 @@ const authService = {
   },
   updateProfile: async (payload) => {
     try {
-      const response = await api.post('auth/updateProfile.php', payload);
+      const response = await api.post('auth/updateProfile', payload);
       return response.data;
     } catch (error) {
       if (error.response) {
@@ -97,12 +112,12 @@ const authService = {
     localStorage.removeItem('user');
   },
 
-  // Check if user is logged in
+ 
   isAuthenticated: () => {
     return localStorage.getItem('auth_token') !== null;
   },
 
-  // Get current user data
+ 
   getCurrentUser: () => {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;

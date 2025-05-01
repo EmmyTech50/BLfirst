@@ -1,5 +1,6 @@
 import  { useState } from "react";
 import Logo from '../../assets/tulip-logo.png';
+import {  Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -62,9 +63,9 @@ const ForgotPassword = () => {
         borderColor="gray.100"
         bg="primary.100"
       >
-        <Box>
+        <RouterLink to="/">
           <Image src={Logo} alt="Logo" h="40px" objectFit="contain" />
-        </Box>
+          </RouterLink>
         <Text fontSize="sm" color="gray.600">
           Remember your password? <Link color="primary.50" fontWeight="medium" href="#">Log In</Link>
         </Text>

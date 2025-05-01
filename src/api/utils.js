@@ -2,8 +2,7 @@ const PAYSTACK = {
     pubKey:'pk_test_4e634e3dee2069a6c3767982040ed0c141ff9560',
 }
 
-
-const BL_ALERT = {
+const TB_ALERT = {
     error:(title, desc)=>{
         return {
             title: title,
@@ -32,3 +31,5 @@ const BL_ALERT = {
           }
     }
 }
+
+export { TB_ALERT, PAYSTACK }
