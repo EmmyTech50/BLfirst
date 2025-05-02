@@ -10,6 +10,7 @@ import {
   AccordionIcon,
   Text,
   Image,
+  Divider,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import Logo from '../../../assets/tulip-logo.png';
@@ -37,7 +38,7 @@ export default function FAQs() {
 
       {/* ── Hero Banner for FAQs ───────────────────────────────────────── */}
       <Box
-        bgImage={`url("https://images.unsplash.com/photo-1584466977779-5abdbd0d09a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80")`}
+        bgImage={`url("src/assets/yellowcream (1).jpg")`}
         bgRepeat="no-repeat"
         bgSize="cover"
         bgPosition="center"
@@ -66,7 +67,7 @@ export default function FAQs() {
       </Box>
 
       {/* ── FAQ Accordion ──────────────────────────────────────────────── */}
-      <Box flex="1" py={16}>
+      <Box flex="1" py={16}bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))" >
         <Container maxW="container.md">
           <Accordion allowMultiple>
             {[
@@ -142,9 +143,10 @@ export default function FAQs() {
         </Container>
       </Box>
 
-      {/* ── Footer ─────────────────────────────────────────────────────── */}
-      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm" bg="white">
-        <Text>© 2025 The Tulip Body Care. All rights reserved.</Text>
+      <Divider/>
+      {/* Footer */}
+      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm" bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))">
+        © 2025 The Tulip Body Care. All rights reserved.
       </Box>
     </Box>
   );

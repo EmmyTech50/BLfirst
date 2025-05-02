@@ -35,6 +35,7 @@ import { FiPlus,  FiX } from 'react-icons/fi';
 import { useState } from 'react';
 import ProductTable from '../../components/ProductTable';
 import { products as initialProducts } from '../../Data/MockData';
+import { TB_ALERT } from '../../api/utils';
 
 export default function Products() {
   const [products, setProducts] = useState(initialProducts);
@@ -52,6 +53,12 @@ export default function Products() {
     isOpen: isCategoryModalOpen,
     onOpen: onCategoryModalOpen,
     onClose: onCategoryModalClose
+  } = useDisclosure();
+
+  const {
+    isOpen: isDeleteCategoryModalOpen,
+    onOpen: onDeleteCategoryModalOpen,
+    onClose: onDeleteCategoryModalClose
   } = useDisclosure();
 
   // Form fields
@@ -109,14 +116,9 @@ export default function Products() {
 
   const handleDelete = (id) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
-    toast({
-      title: 'Product deleted',
-      status: 'info',
-      duration: 3000,
-      isClosable: true
-    });
+    toast( TB_ALERT.info('Product deleted') );
   };
-
+  
   const handleSaveProduct = () => {
     if (selectedProduct) {
       setProducts((prev) =>
@@ -297,6 +299,7 @@ export default function Products() {
                   <FormLabel display="flex" justifyContent="space-between" alignItems="center">
                     Category
                     <Button
+                    ml={3}
                       leftIcon={<FiPlus />}
                       size="xs"
                       variant="link"
@@ -304,6 +307,15 @@ export default function Products() {
                       onClick={onCategoryModalOpen}
                     >
                       Add Category
+                    </Button>
+                    <Button
+                    ml={5}
+                      size="xs"
+                      variant="link"
+                      color="primary.50"
+                      onClick={onDeleteCategoryModalOpen}
+                    >
+                      Delete Category
                     </Button>
                   </FormLabel>
                   <Select
@@ -349,7 +361,7 @@ export default function Products() {
       </Modal>
 
       {/* Add Category Modal */}
-      <Modal isOpen={isCategoryModalOpen} onClose={onCategoryModalClose}>
+      <Modal isOpen={isCategoryModalOpen} onClose={onCategoryModalClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader bgColor="primary.50" color="white">Add New Category</ModalHeader>
@@ -372,6 +384,35 @@ export default function Products() {
             </Button>
             <Button bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}}  color="primary.100" onClick={onCategoryModalClose}>
               Save Category
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      {/* Delete Category Modal */}
+      <Modal isOpen={isDeleteCategoryModalOpen} onClose={onDeleteCategoryModalClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader bgColor="primary.50" color="white">Delete Category</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl>
+              <FormLabel>Category Name</FormLabel>
+              <Input placeholder="Enter category name" />
+            </FormControl>
+          </ModalBody>
+          <ModalFooter>
+            <Button 
+              variant="outline" 
+              _hover={{ bg: "primary.50", color: "primary.100", }}
+              color="primary.50"
+              mr={3} 
+              onClick={onDeleteCategoryModalClose}
+            >
+              Cancel
+            </Button>
+            <Button bg="primary.50" _hover={{bg:"rgba(255,255,255,0.2)", color: "primary.50"}}  color="primary.100" onClick={onDeleteCategoryModalClose}>
+              Delete Category
             </Button>
           </ModalFooter>
         </ModalContent>

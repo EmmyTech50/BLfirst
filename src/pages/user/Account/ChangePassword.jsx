@@ -14,10 +14,12 @@ import {
   Flex,
   Spacer,
   Image,
-  useColorModeValue
+  useColorModeValue,
+  Divider
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Logo from "../../../assets/tulip-logo.png";
+import { TB_ALERT } from "../../../api/utils";
 
 export default function ChangePassword() {
   const [current, setCurrent] = useState("");
@@ -33,16 +35,16 @@ export default function ChangePassword() {
 
   const handleChange = () => {
     if (newPass !== confirm) {
-      toast({ title: "Passwords do not match.", status: "error", duration: 3000, isClosable: true });
+      toast( TB_ALERT.error( "Passwords do not match.") );
       return;
     }
-    // TODO: call API...
-    toast({ title: "Password changed.", status: "success", duration: 2000, isClosable: true });
+    // TODO: call API... 
+    toast( TB_ALERT.success( "Password changed.") );
     navigate("/account");
   };
 
   return (
-    <Box minH="100vh" bg={bg}>
+    <Box minH="100vh" bg={bg} bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))">
       {/* Header */}
       <RouterLink to="/">
         <Flex as="header" bg="white" boxShadow="sm" align="center" px={6} py={4} position="sticky" top={0} zIndex={1}>
@@ -127,6 +129,12 @@ export default function ChangePassword() {
 
         </Box>
       </Container>
+
+      <Divider/>
+            {/* Footer */}
+            <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
+              © 2025 The Tulip Body Care. All rights reserved.
+            </Box>
     </Box>
   );
 }

@@ -19,6 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Logo from '../../assets/tulip-logo.png';
+import { TB_ALERT } from "../../api/utils";
 
 export default function AdminLoginPage() {
   const navigate = useNavigate();
@@ -43,14 +44,8 @@ export default function AdminLoginPage() {
       return;
     }
 
-    // TODO: replace with real authentication call
-    toast({
-      title: "Login Successful",
-      description: `Welcome back, Admin!`,
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    
+    toast( TB_ALERT.success("Login Successful",  `Welcome back, Admin!`) );
 
     // navigate into admin area
     navigate("/admin");

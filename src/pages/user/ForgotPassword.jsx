@@ -18,6 +18,7 @@ import {
   AlertDescription,
   Image,
 } from "@chakra-ui/react";
+import { TB_ALERT } from "../../api/utils";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -28,29 +29,19 @@ const ForgotPassword = () => {
     e.preventDefault();
     // Forgot password logic would go here
     if (!email) {
-      toast({
-        title: "Error",
-        description: "Please enter your email address",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      toast( TB_ALERT.error("Error", "Please enter your email address.") );
       return;
     }
     
-    // Simulate password reset email being sent
+     
+    // Simulate password reset email being sent 
     setIsSubmitted(true);
-    toast({
-      title: "Email Sent",
-      description: "Check your inbox for password reset instructions",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
+    toast( TB_ALERT.success("Email Sent", "Check your inbox for password reset instructions.") );
   };
 
+
   return (
-    <Box minH="100vh" bg="#FDF9F3">
+    <Box minH="100vh" bgGradient="linear(to-r, rgba(123, 106, 119, 0.8), rgba(0,0,0,0.3))">
       {/* Header */}
       <Flex 
         as="header" 

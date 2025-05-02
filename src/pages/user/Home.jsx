@@ -66,6 +66,7 @@ import {
 } from "react-icons/fi";
 
 import { motion } from "framer-motion";
+import { TB_ALERT } from "../../api/utils";
 // Use motion.create to wrap Chakra Box
 const MotionBox = motion.create(Box);
 
@@ -342,25 +343,14 @@ export default function Home() {
     } else {
       setCartItems([...cartItems, { ...product, quantity: 1 }]);
     }
-    toast({
-      title: "Added to cart",
-      description: `${product.name} has been added to your cart`,
-      status: "success",
-      duration: 2000,
-      isClosable: true
-    });
+    toast( TB_ALERT.success("Added to cart", `${product.name} has been added to your cart`) );
   };
-
+  
   const removeFromCart = (productId) => {
     setCartItems(cartItems.filter((i) => i.id !== productId));
-    toast({
-      title: "Removed from cart",
-      description: "Item has been removed from your cart",
-      status: "info",
-      duration: 2000,
-      isClosable: true
-    });
+    toast( TB_ALERT.info("Removed from cart", "Item has been removed from your cart") );
   };
+
 
   const updateCartQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) {
@@ -377,38 +367,23 @@ export default function Home() {
   const addToWishlist = (product) => {
     if (!wishlistItems.some((i) => i.id === product.id)) {
       setWishlistItems([...wishlistItems, product]);
-      toast({
-        title: "Added to wishlist",
-        description: `${product.name} has been added to your wishlist`,
-        status: "success",
-        duration: 2000,
-        isClosable: true
-      });
+      toast( TB_ALERT.success( "Added to wishlist", `${product.name} has been added to your wishlist`) );
     }
   };
 
+ 
   const removeFromWishlist = (productId) => {
     setWishlistItems(wishlistItems.filter((i) => i.id !== productId));
-    toast({
-      title: "Removed from wishlist",
-      description: "Item has been removed from your wishlist",
-      status: "info",
-      duration: 2000,
-      isClosable: true
-    });
+    toast( TB_ALERT.info("Removed from wishlist", "Item has been removed from your wishlist") );
   };
+
 
   const moveFromWishlistToCart = (product) => {
     addToCart(product);
     removeFromWishlist(product.id);
-    toast({
-      title: "Moved to cart",
-      description: `${product.name} has been moved from wishlist to cart`,
-      status: "success",
-      duration: 2000,
-      isClosable: true
-    });
+    toast( TB_ALERT.success( "Moved to cart", `${product.name} has been moved from wishlist to cart`) );
   };
+
 
   // Totals
   const calculateCartTotal = () => cartItems.reduce((sum, i) => sum + (i.discountPrice ?? i.price) * i.quantity, 0).toFixed(2);
@@ -1204,15 +1179,9 @@ const grandTotal = goodsTotal + deliveryFee;
                   // persist last-used address for MyAccount page
                   const addr = { location, street, city, postal };
                   localStorage.setItem("lastOrderAddress", JSON.stringify(addr));
-
-                  toast({
-                    title: "Payment completed!",
-                    description: `You paid ₦${grandTotal.toFixed(2)} successfully.`,
-                    status: "success",
-                    duration: 2000,
-                    isClosable: true,
-                  });
-                  setCartItems([]); // clear cart
+                  console.log(cartItems); 
+                  toast( TB_ALERT.success("Payment completed!" , `You paid ₦${grandTotal.toFixed(2)} successfully.`) );
+                  setCartItems([]); // clear cart 
                 }}
               >
                 Complete Payment

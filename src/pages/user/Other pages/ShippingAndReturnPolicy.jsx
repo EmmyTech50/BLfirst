@@ -14,7 +14,7 @@ import Logo from '../../../assets/tulip-logo.png';
 
 export default function ShippingReturns() {
   return (
-    <Box minH="100vh" display="flex" flexDirection="column" bg="gray.50">
+    <Box minH="100vh" display="flex" flexDirection="column" bg="gray.50" bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))" >
       
       {/* ── Sticky Header with Logo ───────────────────────────────────── */}
       <Flex
@@ -50,6 +50,7 @@ export default function ShippingReturns() {
             size="2xl"
             mb={4}
             textShadow="0 2px 8px rgba(0,0,0,0.6)"
+            color="primary.50"
           >
             Shipping &amp; Return Policy
           </Heading>
@@ -124,9 +125,10 @@ export default function ShippingReturns() {
         </Container>
       </Box>
 
-      {/* ── Footer ───────────────────────────────────────────────────────── */}
-      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm" bg="white">
-        <Text>© 2025 The Tulip Body Care. All rights reserved.</Text>
+      <Divider/>
+      {/* Footer */}
+      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
+        © 2025 The Tulip Body Care. All rights reserved.
       </Box>
     </Box>
   );

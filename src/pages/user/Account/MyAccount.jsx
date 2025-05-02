@@ -15,12 +15,13 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  useColorModeValue,
+  // useColorModeValue,
   Image,
   Spacer,
   Input,
   VStack,
   IconButton,
+  Divider,
 } from "@chakra-ui/react";
 import {
   FaUserEdit,
@@ -33,7 +34,7 @@ import { FiCamera } from "react-icons/fi";
 import Logo from "../../../assets/tulip-logo.png";
 
 export default function MyAccount({ onLogout }) {
-  const bg = useColorModeValue("gray.50", "gray.800");
+  // const bg = useColorModeValue("gray.50", "gray.800");
   const accent = "pink.300";
   const navigate = useNavigate();
 
@@ -58,7 +59,7 @@ export default function MyAccount({ onLogout }) {
 
 
   return (
-    <Box minH="100vh" bg={bg}>
+    <Box minH="100vh" bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))">
       {/* Header */}
       <RouterLink to="/">
         <Flex as="header" bg="white" boxShadow="sm" align="center" px={6} py={4}>
@@ -142,6 +143,12 @@ export default function MyAccount({ onLogout }) {
           </TabPanels>
         </Tabs>
       </Flex>
+
+      <Divider mt={20}/>
+        {/* Footer */}
+        <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
+          © 2025 The Tulip Body Care. All rights reserved.
+        </Box>
     </Box>
   );
 }

@@ -1,4 +1,4 @@
-import { Box, Flex, Container, Heading, Text, SimpleGrid, VStack, Image, Button, Stack, Icon } from "@chakra-ui/react";
+import { Box, Flex, Container, Heading, Text, SimpleGrid, VStack, Image, Button, Stack, Icon, Divider } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { GiChemicalDrop, GiSeedling } from "react-icons/gi";
 import Logo from '../../../assets/tulip-logo.png';
@@ -27,19 +27,21 @@ export default function AboutUs() {
 
       {/* Hero with full-width background */}
       <Box
-        bgImage={`url("https://images.unsplash.com/photo-1516728778615-2d590ea1856f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80")`}
+        bgImage={`url("src/assets/TulipAboutUsBg.jpg")`}
         bgRepeat="no-repeat"
         bgSize="cover"
         bgPosition="center"
+        w="98.4vw"            
+        h="150vh" 
         color="white"
         py={{ base: 24, md: 40 }}
         textAlign="center"
       >
         <Container maxW="container.lg">
-          <Heading size="3xl" mb={4} textShadow="0 2px 8px rgba(0,0,0,0.6)">
+          <Heading size="3xl" mb={4} textShadow="0 2px 8px rgba(0,0,0,0.6)" textAlign="center" color="primary.50">
             About The Tulip Body Care
           </Heading>
-          <Text fontSize={{ base: "lg", md: "xl" }} maxW="3xl" mx="auto" textShadow="0 1px 4px rgba(0,0,0,0.4)">
+          <Text textAlign="center" fontSize={{ base: "lg", md: "xl" }} maxW="3xl" mx="auto" textShadow="0 1px 4px rgba(0,0,0,0.4)" color="rgba(13, 5, 5, 0.3)">
             Natural, cruelty-free skincare crafted to illuminate your inner radiance.
           </Text>
         </Container>
@@ -51,14 +53,14 @@ export default function AboutUs() {
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12}>
           <Stack spacing={4} align="center" textAlign="center">
             <Icon as={GiSeedling} boxSize={12} color="primary.50" />
-            <Heading size="lg" color="primary.100">Our Story</Heading>
+            <Heading size="lg" color="primary.50">Our Story</Heading>
             <Text px={{ base: 4, md: 0 }}>
               In 2023 we began in a small kitchen-lab, blending botanical extracts by hand. Today, our products are celebrated across Nigeria for their purity, performance, and commitment to sustainability.
             </Text>
           </Stack>
           <Stack spacing={4} align="center" textAlign="center">
             <Icon as={GiChemicalDrop} boxSize={12} color="primary.50" />
-            <Heading size="lg" color="primary.100">Our Mission</Heading>
+            <Heading size="lg" color="primary.50">Our Mission</Heading>
             <Text px={{ base: 4, md: 0 }}>
               To empower every individual to embrace their natural beauty with safe, eco-friendly, and effective skincare solutions.
             </Text>
@@ -67,7 +69,7 @@ export default function AboutUs() {
       </Container>
 
       {/* Meet the Team */}
-      <Box bg="white" py={{ base: 12, md: 16 }}>
+      <Box bg="white" py={{ base: 12, md: 16 }}bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))" >
         <Container maxW="container.lg" textAlign="center">
           <Heading size="lg" mb={8} color="primary.100">Meet the Team</Heading>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={8}>
@@ -79,7 +81,7 @@ export default function AboutUs() {
               <VStack
                 key={m.name}
                 spacing={4}
-                bg="gray.100"
+                bg="gray.500"
                 p={6}
                 borderRadius="lg"
                 boxShadow="sm"
@@ -96,7 +98,7 @@ export default function AboutUs() {
       </Box>
 
       {/* Call to Action */}
-      <Box py={{ base: 8, md: 12 }} textAlign="center">
+      <Box py={{ base: 8, md: 12 }} textAlign="center" bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))" >
         <Button
           as={RouterLink}
           to="/shop"
@@ -109,9 +111,10 @@ export default function AboutUs() {
         </Button>
       </Box>
 
+      <Divider/>
       {/* Footer */}
-      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm" bg="white">
-        <Text>© 2025 The Tulip Body Care. All rights reserved.</Text>
+      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm" bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))">
+        © 2025 The Tulip Body Care. All rights reserved.
       </Box>
     </Box>
   );

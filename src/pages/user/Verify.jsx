@@ -14,6 +14,7 @@ import {
   HStack,
   PinInput,
   PinInputField,
+  Divider,
 } from "@chakra-ui/react";
 import Logo from '../../assets/tulip-logo.png';
 import { TB_ALERT } from '../../api/utils';
@@ -37,7 +38,7 @@ export default function Login() {
   };
 
   return (
-    <Box minH="100vh" bg="#FDF9F3" display="flex" flexDirection="column">
+    <Box minH="100vh" bg="#FDF9F3" display="flex" flexDirection="column" bgGradient="linear(to-r, rgba(164, 141, 159, 0.8), rgba(0,0,0,0.3))">
       {/* Sticky Header */}
       <Flex
         as="header"
@@ -101,6 +102,7 @@ export default function Login() {
         </Box>
       </Container>
 
+      <Divider/>
       {/* Footer */}
       <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
         © 2025 The Tulip Body Care. All rights reserved.

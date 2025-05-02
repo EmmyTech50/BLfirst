@@ -16,9 +16,11 @@ import {
   Checkbox,
   Link,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Logo from '../../assets/tulip-logo.png';
+import { TB_ALERT } from "../../api/utils";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -33,29 +35,17 @@ export default function Login() {
     e.preventDefault();
 
     if (!email || !password) {
-      toast({
-        title: "Error",
-        description: "Please fill in both fields",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
+      toast( TB_ALERT.error("Error", "Please Fill in both Field.") );
       return;
     }
 
-    toast({
-      title: "Login successful",
-      description: `Welcome back!`,
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+    toast( TB_ALERT.success("Login Successful", "Welcome Back.") );
 
     navigate("/", { replace: true });
   };
 
   return (
-    <Box minH="100vh" bg="#FDF9F3" display="flex" flexDirection="column">
+    <Box minH="100vh" bg="#FDF9F3" display="flex" flexDirection="column" bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))">
       {/* Sticky Header */}
       <Flex
         as="header"
@@ -151,6 +141,7 @@ export default function Login() {
         </Box>
       </Container>
 
+      <Divider/>
       {/* Footer */}
       <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
         © 2025 The Tulip Body Care. All rights reserved.

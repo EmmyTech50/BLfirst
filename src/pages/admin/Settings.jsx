@@ -24,6 +24,7 @@ import {
   IconButton,
 } from '@chakra-ui/react'
 import { FiTrash2 } from 'react-icons/fi'
+import { TB_ALERT } from '../../api/utils'
 
 export default function SettingsPage() {
   const toast = useToast()
@@ -63,34 +64,24 @@ export default function SettingsPage() {
         return prev.filter(s => s !== id)
       }
       if (prev.length >= 3) {
-        toast({
-          title: 'You can only select up to 3 slides.',
-          status: 'warning',
-          duration: 3000,
-          isClosable: true,
-        })
+        toast( TB_ALERT.warning('You can only select up to 3 slides.') );
         return prev
       }
       return [...prev, id]
     })
   }
-
+  
   // Delete a slide
   const handleDeleteSlide = (id) => {
     setSlideOptions(prev => prev.filter(s => s.id !== id))
     setActiveSlides(prev => prev.filter(s => s !== id))
   }
 
-  // Upload new slide
+  // Upload new slide 
   const handleUpload = () => {
     const file = fileInputRef.current.files[0]
     if (!newTitle || !file) {
-      toast({
-        title: 'Please provide a title and select an image file.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true,
-      })
+      toast( TB_ALERT.error('Please provide a title and select an image file.') );
       return
     }
     const url = URL.createObjectURL(file)
@@ -106,33 +97,18 @@ export default function SettingsPage() {
     setNewTitle('')
     setNewSubtitle('')
     fileInputRef.current.value = null
-    toast({
-      title: 'Slide uploaded.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    })
+    toast( TB_ALERT.success('Slide uploaded.') );
   }
 
-  // Save notification settings
+  // Save notification settings 
   const handleSaveNotifications = () => {
-    toast({
-      title: 'Notification settings saved.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    })
-    // TODO: persist emailOrders, emailPromos, smsAlerts
+    toast( TB_ALERT.success('Notification settings saved.') );
+   
   }
 
-  // Save slides & persist to localStorage
+  // Save slides & persist to localStorage 
   const handleSaveSlides = () => {
-    toast({
-      title: 'Slide selection saved.',
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    })
+    toast( TB_ALERT.success('Slide selection saved.') );
     // TODO: also send to your API if needed
   }
 

@@ -137,7 +137,7 @@ function Footer({ onCategorySelect }) {
           </GridItem>
         </Grid>
 
-        <Divider my={6} borderColor="whiteAlpha.400" />
+        <Divider my={6} borderColor="gray.500" />
 
         <Text textAlign="center" fontSize="sm">
           © {new Date().getFullYear()} The Tulip Body Care. All rights reserved.

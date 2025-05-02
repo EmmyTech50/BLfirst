@@ -21,6 +21,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react'
 import { FiCamera, FiEye, FiEyeOff } from 'react-icons/fi'
+import { TB_ALERT } from '../../api/utils'
 
 export default function AdminProfilePage() {
   const toast = useToast()
@@ -34,8 +35,8 @@ export default function AdminProfilePage() {
     if (!file) return
     const url = URL.createObjectURL(file)
     setAvatarUrl(url)
-    // TODO: upload file to server here
-    toast({ title: 'Avatar updated.', status: 'success', duration: 2000, isClosable: true })
+    // TODO: upload file to server here 
+    toast( TB_ALERT.success('Image updated.') );
   }
 
   // --- Profile info ---
@@ -46,8 +47,8 @@ export default function AdminProfilePage() {
   })
 
   const handleSaveProfile = () => {
-    // TODO: send profile to API
-    toast({ title: 'Profile saved.', status: 'success', duration: 2000, isClosable: true })
+    // TODO: send profile to API 
+    toast( TB_ALERT.success('Profile saved.') );
   }
 
   // --- Security (password) ---
@@ -62,12 +63,12 @@ export default function AdminProfilePage() {
 
   const handleSavePassword = () => {
     if (security.new !== security.confirm) {
-      toast({ title: 'New passwords must match.', status: 'error', duration: 3000, isClosable: true })
+      toast( TB_ALERT.error('New passwords must match.') );
       return
     }
-    // TODO: call change-password API
+    // TODO: call change-password API 
     setSecurity({ current: '', new: '', confirm: '' })
-    toast({ title: 'Password changed.', status: 'success', duration: 2000, isClosable: true })
+    toast( TB_ALERT.success('Password changed.') );
   }
 
   return (

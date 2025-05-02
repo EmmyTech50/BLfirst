@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import { FiPlus, FiTrash2, FiEdit } from 'react-icons/fi'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
+import { TB_ALERT } from '../../api/utils'
 
 export default function AdminPage() {
   const [admins, setAdmins] = useState([
@@ -38,21 +39,21 @@ export default function AdminPage() {
   function handleAddOrEdit() {
     const { name, email, password, role } = newAdmin
     if (!name || !email || !password || !role) {
-      toast({ title: 'All fields are required.', status: 'error', duration: 3000, isClosable: true })
+      toast( TB_ALERT.error('All fields are required.') );
       return
     }
-
+   
     if (editId !== null) {
       setAdmins(prev =>
         prev.map(a => a.id === editId ? { ...a, name, email, role } : a)
       )
-      toast({ title: 'Admin updated.', status: 'success', duration: 2000, isClosable: true })
+      toast( TB_ALERT.success('Admin updated.') );
     } else {
       const id = Math.max(0, ...admins.map(a => a.id)) + 1
       setAdmins([...admins, { id, name, email, role }])
-      toast({ title: 'Admin added.', status: 'success', duration: 2000, isClosable: true })
+      toast( TB_ALERT.success('Admin added.') );
     }
-
+    
     setNewAdmin({ name: '', email: '', password: '', role: '' })
     setEditId(null)
     setShowPassword(false)
@@ -66,9 +67,9 @@ export default function AdminPage() {
   function confirmDelete() {
     setAdmins(admins.filter(a => a.id !== toDelete))
     onDelClose()
-    toast({ title: 'Admin deleted.', status: 'warning', duration: 2000, isClosable: true })
+    toast( TB_ALERT.warning('Admin deleted.') );
   }
-
+  
   return (
     <Box p={6} bg='primary.100'>
       <HStack justify="space-between" mb={4}>

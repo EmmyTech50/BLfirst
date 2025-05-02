@@ -15,6 +15,7 @@ import {
   Image,
   Link,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Logo from '../../assets/tulip-logo.png';
@@ -61,9 +62,10 @@ export default function RegisterPage() {
        ogImage={Logo}
        twitterTitle="Polyconcepts and Consultancy Limited (PCL) | About" 
        twitterDesc="Polyconcepts and Consultancy Limited (PCL) offers quality, cost-effective Business Development, Project Management, Financial Intermediation, and Insolvency Practice services in Nigeria. Partner with us for expert Business Advisory, Training, and Investment Management solutions"
-       twitterImag={Logo}/>
+       twitterImag={Logo}
+      />
 
-      <Box minH="100vh" bg="gray.50" display="flex" flexDirection="column">
+      <Box minH="100vh" bg="gray.50" display="flex" flexDirection="column" bgGradient="linear(to-r, rgba(148, 126, 143, 0.8), rgba(0,0,0,0.3))">
           {/* Header */}
           <Flex
             as="header"
@@ -182,11 +184,12 @@ export default function RegisterPage() {
             </Box>
           </Container>
 
+          <Divider/>
           {/* Footer */}
           <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
             © 2025 The Tulip Body Care. All rights reserved.
           </Box>
-        </Box>
+      </Box>
     </>
 
   );

@@ -13,9 +13,11 @@ import {
   VStack,
   useToast,
   Image,
+  Divider,
 } from '@chakra-ui/react';
 import { Link as RouterLink } from 'react-router-dom';
 import Logo from '../../../assets/tulip-logo.png';
+import { TB_ALERT } from '../../../api/utils';
 
 export default function ContactUs() {
   const toast = useToast();
@@ -33,18 +35,14 @@ export default function ContactUs() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    toast({
-      title: 'Message sent!',
-      description: "Thanks for reaching out — we'll get back to you soon.",
-      status: 'success',
-      duration: 3000,
-      isClosable: true,
-    });
+    toast( TB_ALERT.success('Message sent!', "Thanks for reaching out — we'll get back to you soon.") );
     setForm({ name: '', email: '', subject: '', message: '' });
   };
-
+  
   return (
-    <Box minH="100vh" bg="gray.50" display="flex" flexDirection="column">
+    <Box minH="100vh" bg="gray.50" display="flex" flexDirection="column"
+    bgGradient="linear(to-r, rgba(145,106,136,0.8), rgba(0,0,0,0.3))" 
+    >
       {/* Header with logo */}
       <Flex
         as="header"
@@ -152,9 +150,10 @@ export default function ContactUs() {
         </Container>
       </Box>
 
+      <Divider/>
       {/* Footer */}
-      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm" bg="white">
-        <Text>© 2025 The Tulip Body Care. All rights reserved.</Text>
+      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
+        © 2025 The Tulip Body Care. All rights reserved.
       </Box>
     </Box>
   );

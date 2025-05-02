@@ -12,6 +12,15 @@ const TB_ALERT = {
             isClosable: true,
           }
     },
+    warning:(title, desc)=>{
+        return {
+            title: title,
+            description: desc,
+            status: "warning",
+            duration: 3000,
+            isClosable: true,
+          }
+    },
     success:(title, desc)=>{
         return {
         title: title,

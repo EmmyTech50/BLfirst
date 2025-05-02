@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 import Logo from "../../../assets/tulip-logo.png";
 import { FiStar, FiChevronDown } from 'react-icons/fi';
+import { TB_ALERT } from '../../../api/utils';
 
 // ... sampleOrders and ratingLabels as before ...
 const sampleOrders = [
@@ -116,17 +117,11 @@ export default function MyOrders({ orders = sampleOrders }) {
 
   const handleRate = (orderId, itemId, rating) => {
     setRatings(prev => ({ ...prev, [`${orderId}_${itemId}`]: rating }));
-    toast({
-      title: 'Thank you for your feedback!',
-      description: ratingLabels[rating],
-      status: 'success',
-      duration: 2000,
-      isClosable: true,
-    });
+    toast( TB_ALERT.success('Thank you for your feedback!', ratingLabels[rating],) );
   };
-
+  
   return (
-    <Box minH="100vh">
+    <Box minH="100vh" bgGradient="linear(to-r, rgba(181, 162, 176, 0.8), rgba(0,0,0,0.3))">
 
           {/* Header */}
           <RouterLink to="/">
@@ -256,6 +251,12 @@ export default function MyOrders({ orders = sampleOrders }) {
           </Box>
         ))}
       </VStack>
+
+      <Divider/>
+      {/* Footer */}
+      <Box as="footer" p={4} textAlign="center" color="gray.500" fontSize="sm">
+        © 2025 The Tulip Body Care. All rights reserved.
+      </Box>
     </Box>
   );
 }
