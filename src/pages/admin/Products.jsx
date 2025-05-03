@@ -72,6 +72,17 @@ export default function Products() {
     active: true,
     image: null
   });
+  // Delete Form fields
+  const [DeleteformData, setDeleteFormData] = useState({
+    name: '',
+    description: '',
+    price: '',
+    discount: '',
+    stock: '',
+    category: '',
+    active: true,
+    image: null
+  });
 
    // handle file selection
   const handleImageChange = e => {
@@ -315,7 +326,7 @@ export default function Products() {
                       color="primary.50"
                       onClick={onDeleteCategoryModalOpen}
                     >
-                      Delete Category
+                      View Category
                     </Button>
                   </FormLabel>
                   <Select
@@ -393,12 +404,23 @@ export default function Products() {
       <Modal isOpen={isDeleteCategoryModalOpen} onClose={onDeleteCategoryModalClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader bgColor="primary.50" color="white">Delete Category</ModalHeader>
+          <ModalHeader bgColor="primary.50" color="white">View Category</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <FormControl>
               <FormLabel>Category Name</FormLabel>
-              <Input placeholder="Enter category name" />
+              <Select
+                placeholder="Select category"
+                value={formData.category}
+                onChange={(e) => setDeleteFormData({ ...DeleteformData, category: e.target.value })}
+              >
+                <option>Skincare</option>
+                <option>Makeup</option>
+                <option>Hair Care</option>
+                <option>Body Care</option>
+                <option>Fragrances</option>
+                <option>Tools & Accessories</option>
+              </Select>
             </FormControl>
           </ModalBody>
           <ModalFooter>
